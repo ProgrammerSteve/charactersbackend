@@ -2,15 +2,14 @@ const express= require('express');
 const bodyParser= require('body-parser');
 const mongoose=require('mongoose');// for mongodb
 const Character=require('./models/characters');
-const cors= requrire('cors');
+const cors= require('cors');
 const app=express();
 app.use(bodyParser.json());
-app.use(cors);
+app.use(cors());
 
 app.get('/', (req, res, next)=> {
     Character.find().then(result=>res.send(result)).catch(err=>console.log(err));
 });
-
 
 const port = process.env.PORT || 3000
 mongoose
@@ -19,6 +18,7 @@ mongoose
     )
     .then(()=>{
         console.log('connected to mongodb...')
+        console.log(`listening to port: ${port}`)
         app.listen(port);
     })
-    .catch(err=>console.log(err))
+    .catch(err=>console.log(`Could not connect to mongo DB:`, err))
