@@ -1,15 +1,23 @@
 const express= require('express');
 const bodyParser= require('body-parser');
 const mongoose=require('mongoose');
-const Character=require('./models/characters');
+const HSK1=require('./models/hsk1');
+const HSK2=require('./models/hsk2');
 const cors= require('cors');
 const app=express();
 app.use(bodyParser.json());
 app.use(cors());
 
 app.get('/', (req, res, next)=> {
-    Character.find().then(result=>res.send(result)).catch(err=>console.log(err));
+    HSK1.find().then(result=>res.send(result)).catch(err=>console.log(err));
 });
+
+app.get('/hsk2', (req, res, next)=> {
+    HSK2.find().then(result=>res.send(result)).catch(err=>console.log(err));
+});
+
+
+
 
 const port = process.env.PORT || 3000
 mongoose
